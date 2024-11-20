@@ -5,20 +5,23 @@ El reflector mapea las letras de forma simétrica y no tiene posición variable.
 """
 
 class Reflector:
-    def __init__(self, wiring):
+    def __init__(self, wiring, alphabet):
         """
-        Inicializa el reflector con su mapeo fijo.
+        Inicializa el reflector con su cableado.
 
-        :param wiring: Un string de 26 caracteres que define el mapeo del reflector.
+        :param wiring: El cableado del reflector como un string (mapeo de letras).
+        :param alphabet: El alfabeto extendido utilizado en la máquina Enigma.
         """
         self.wiring = wiring
+        self.alphabet = alphabet
 
     def reflect(self, letter):
         """
-        Mapea una letra según el mapeo del reflector.
+        Refleja una letra a través del reflector.
 
-        :param letter: La letra a reflejar (de 'A' a 'Z').
+        :param letter: La letra a procesar.
         :return: La letra reflejada.
         """
-        index = ord(letter) - ord('A')
+        index = self.alphabet.index(letter)
         return self.wiring[index]
+

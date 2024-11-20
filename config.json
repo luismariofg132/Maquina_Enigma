@@ -1,0 +1,21 @@
+{
+    "alphabet": "ABCDEFGHIJKLMNOPQRSTUVWXYZÁÉÍÓÚÑ0123456789 .,;!?()[]{}+-*/=_@#%&:$¡¿",
+    "rotors": [
+      {
+        "wiring": "EKMFLGDQVZNTOWYHXUSPAIBRCJÁÉÍÓÚÑ0123456789 .,;!?()[]{}+-*/=_@#%&:$¡¿",
+        "notch": 30
+      },
+      {
+        "wiring": "AJDKSIRUXBLHWTMCQGZNPYFVOEÁÉÍÓÚÑ0123456789 .,;!?()[]{}+-*/=_@#%&:$¡¿",
+        "notch": 45
+      },
+      {
+        "wiring": "BDFHJLCPRTXVZNYEIWGAKMUSQOÁÉÍÓÚÑ0123456789 .,;!?()[]{}+-*/=_@#%&:$¡¿",
+        "notch": 60
+      }
+    ],
+    "reflector": {
+      "wiring": "YRUHQSLDPXNGOKMIEBFZCWVJATÁÉÍÓÚÑ0123456789 .,;!?()[]{}+-*/=_@#%&:$¡¿"
+    }
+  }
+  

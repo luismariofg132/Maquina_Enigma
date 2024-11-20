@@ -8,23 +8,31 @@ from Rotor import Rotor
 from Reflector import Reflector
 
 class EnigmaMachine:
-    def __init__(self, rotors, reflector):
+    def __init__(self, rotors, reflector, alphabet):
         """
-        Inicializa la máquina Enigma con una lista de rotores y un reflector.
-
+        Inicializa la máquina Enigma con una lista de rotores, un reflector y un alfabeto.
+        
         :param rotors: Una lista de objetos de tipo Rotor.
         :param reflector: Un objeto de tipo Reflector.
+        :param alphabet: El alfabeto completo que incluye letras, números y otros símbolos.
         """
         self.rotors = rotors
         self.reflector = reflector
+        self.alphabet = alphabet
+        self.alphabet_size = len(alphabet)
 
     def process_letter(self, letter):
         """
         Procesa una letra a través de la máquina Enigma.
-
-        :param letter: La letra a procesar (de 'A' a 'Z').
-        :return: La letra codificada/decodificada.
+        
+        :param letter: La letra a procesar (puede ser un carácter especial, espacio, etc.)
+        :return: La letra codificada o el mismo carácter si es un espacio o no está en el alfabeto.
         """
+        # Si el carácter no está en el alfabeto, simplemente lo devolvemos tal cual
+        if letter not in self.alphabet:
+            print(f"Advertencia: El carácter '{letter}' no está en el alfabeto. Se procesará tal cual.")
+            return letter
+
         # Paso adelante a través de los rotores
         for rotor in self.rotors:
             letter = rotor.encode_forward(letter)
@@ -46,12 +54,13 @@ class EnigmaMachine:
     def encrypt_message(self, message):
         """
         Cifra o descifra un mensaje completo.
-
-        :param message: El mensaje a procesar (string de letras).
+        
+        :param message: El mensaje a procesar (string de letras y caracteres especiales).
         :return: El mensaje procesado.
         """
         result = ''
         for letter in message:
-            if letter.isalpha():
-                result += self.process_letter(letter.upper())
+            # Convertir la letra a mayúsculas antes de procesarla
+            result += self.process_letter(letter.upper())  # Convertimos a mayúsculas
         return result
+

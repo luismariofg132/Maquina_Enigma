@@ -4,44 +4,45 @@ Este módulo define la clase Rotor, que simula el comportamiento de un rotor en 
 Cada rotor tiene un cableado (wiring) que define su mapeo interno, un punto de giro (notch) para avanzar el siguiente rotor, 
 y una posición que se actualiza después de cada pulsación.
 """
-
 class Rotor:
-    def __init__(self, wiring, notch):
+    def __init__(self, wiring, notch, alphabet):
         """
-        Inicializa un rotor con su cableado y posición de giro.
+        Inicializa el rotor con el cableado y el carácter de muesca (notch).
 
-        :param wiring: Un string de 26 caracteres que define el mapeo de las letras.
-        :param notch: Un número entero que indica la posición de giro del rotor (0-25).
+        :param wiring: El cableado del rotor como un string (mapeo de letras).
+        :param notch: La posición de muesca del rotor.
+        :param alphabet: El alfabeto extendido utilizado en la máquina Enigma.
         """
         self.wiring = wiring
         self.notch = notch
-        self.position = 0
+        self.alphabet = alphabet
+        self.position = 0  # Posición inicial del rotor
 
     def encode_forward(self, letter):
         """
-        Mapea una letra en dirección hacia el reflector.
+        Codifica una letra en el sentido adelante (de izquierda a derecha) a través del rotor.
 
-        :param letter: La letra a codificar (de 'A' a 'Z').
-        :return: La letra codificada tras pasar por el rotor.
+        :param letter: La letra a procesar.
+        :return: La letra codificada.
         """
-        index = (ord(letter) - ord('A') + self.position) % 26
-        return chr((ord(self.wiring[index]) - ord('A') - self.position) % 26 + ord('A'))
+        index = self.alphabet.index(letter)
+        return self.wiring[(index + self.position) % len(self.alphabet)]
 
     def encode_backward(self, letter):
         """
-        Mapea una letra en dirección opuesta desde el reflector.
+        Codifica una letra en el sentido inverso (de derecha a izquierda) a través del rotor.
 
-        :param letter: La letra a decodificar (de 'A' a 'Z').
-        :return: La letra decodificada tras pasar por el rotor.
+        :param letter: La letra a procesar.
+        :return: La letra codificada.
         """
-        index = (self.wiring.index(chr((ord(letter) - ord('A') + self.position) % 26 + ord('A'))) - self.position) % 26
-        return chr(index + ord('A'))
+        index = self.wiring.index(letter)
+        return self.alphabet[(index - self.position) % len(self.alphabet)]
 
     def rotate(self):
         """
-        Rota el rotor una posición y verifica si llega al punto de giro.
+        Rota el rotor en su posición.
 
-        :return: True si alcanza el punto de giro; de lo contrario, False.
+        :return: Verdadero si el rotor rota, falso si es la última muesca.
         """
-        self.position = (self.position + 1) % 26
-        return self.position == self.notch
+        self.position = (self.position + 1) % len(self.alphabet)
+        return self.position != self.notch
