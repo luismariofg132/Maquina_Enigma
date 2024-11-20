@@ -15,34 +15,34 @@ def load_configuration(config_file):
     Carga la configuración de la máquina Enigma desde un archivo JSON.
 
     :param config_file: Ruta al archivo JSON con la configuración.
-    :return: Lista de rotores, reflector y alfabeto configurados.
+    :return: Una lista de objetos Rotor, un objeto Reflector y el alfabeto configurado.
     """
     try:
         # Leer el archivo JSON de configuración
         with open(config_file, 'r', encoding='utf-8') as file:
             config = json.load(file)
 
-        # Obtener el alfabeto extendido
+        # Obtener el alfabeto extendido desde el archivo de configuración
         alphabet = config.get("alphabet")
         if not alphabet:
             raise KeyError("alphabet")
 
-        # Verificar unicidad del alfabeto
+        # Verificar que no haya caracteres duplicados en el alfabeto
         if len(set(alphabet)) != len(alphabet):
             raise ValueError("El alfabeto contiene caracteres duplicados.")
 
-        # Crear los rotores
+        # Crear los rotores a partir de la configuración
         rotors = []
         for rotor in config["rotors"]:
-            wiring = rotor.get("wiring")
-            notch = rotor.get("notch")
+            wiring = rotor.get("wiring")  # Cableado del rotor
+            notch = rotor.get("notch")   # Posición de muesca del rotor
             if not wiring or notch is None:
                 raise KeyError("Cada rotor debe tener 'wiring' y 'notch'.")
             if len(wiring) != len(alphabet):
                 raise ValueError(f"La configuración del rotor '{wiring}' no coincide con el alfabeto.")
             rotors.append(Rotor(wiring, notch, alphabet))
 
-        # Crear el reflector
+        # Crear el reflector con su cableado
         reflector_wiring = config["reflector"].get("wiring")
         if not reflector_wiring:
             raise KeyError("reflector.wiring")
@@ -69,33 +69,36 @@ def load_configuration(config_file):
         print(f"Error inesperado al cargar la configuración: {e}")
         sys.exit(1)
 
-
 def main():
-    # Verificar argumentos de línea de comandos
+    """
+    Punto de entrada principal del programa. Carga la configuración de la máquina Enigma,
+    procesa un archivo de texto de entrada y guarda el mensaje cifrado en un archivo de salida.
+    """
+    # Verificar que se pasen los argumentos necesarios al ejecutar el script
     if len(sys.argv) != 4:
         print("Uso: python main.py <archivo_config> <archivo_entrada> <archivo_salida>")
         sys.exit(1)
 
-    # Obtener rutas de los archivos
+    # Obtener las rutas de los archivos desde los argumentos de la línea de comandos
     config_file = sys.argv[1]
     input_file = sys.argv[2]
     output_file = sys.argv[3]
 
-    # Cargar la configuración
+    # Cargar la configuración de la máquina Enigma
     rotors, reflector, alphabet = load_configuration(config_file)
 
-    # Crear la máquina Enigma
+    # Crear la máquina Enigma con la configuración cargada
     enigma = EnigmaMachine(rotors, reflector, alphabet)
 
     try:
-        # Leer el archivo de entrada
+        # Leer el mensaje desde el archivo de entrada
         with open(input_file, 'r', encoding='utf-8') as file:
             message = file.read()
 
-        # Cifrar el mensaje
+        # Cifrar el mensaje utilizando la máquina Enigma
         encrypted_message = enigma.encrypt_message(message)
 
-        # Guardar el mensaje cifrado
+        # Guardar el mensaje cifrado en el archivo de salida
         with open(output_file, 'w', encoding='utf-8') as file:
             file.write(encrypted_message)
 
