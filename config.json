@@ -2,20 +2,20 @@
     "alphabet": "ABCDEFGHIJKLMNOPQRSTUVWXYZÁÉÍÓÚÑ0123456789 .,;!?()[]{}+-*/=_@#%&:$¡¿",
     "rotors": [
       {
-        "wiring": "EKMFLGDQVZNTOWYHXUSPAIBRCJÁÉÍÓÚÑ0123456789 .,;!?()[]{}+-*/=_@#%&:$¡¿",
+        "wiring": "P¿3YB-¡+QI$. %AR0ÓG(Í_6L?ÁK*U/CD7Z2=&[:F5S8O]WN49MJ1#},!XÑH{T@Ú)EVÉ;",
         "notch": 30
       },
       {
-        "wiring": "AJDKSIRUXBLHWTMCQGZNPYFVOEÁÉÍÓÚÑ0123456789 .,;!?()[]{}+-*/=_@#%&:$¡¿",
+        "wiring": "4[+¿7]GOXQÁ/)!;Í@%M5{:.#B3T9F*D&6ÉÓ}_P0W2KES(HRJÑCU$=1NVZIYAL-¡?,8 Ú",
         "notch": 45
       },
       {
-        "wiring": "BDFHJLCPRTXVZNYEIWGAKMUSQOÁÉÍÓÚÑ0123456789 .,;!?()[]{}+-*/=_@#%&:$¡¿",
+        "wiring": "!Y@,ÍÚ.8¡$LB;?Ñ¿ZAV)W7%Á*0&(}HJ14NU/5_6-{R9]ÉKTGX I#2:[=3QMFÓSO+PCED",
         "notch": 60
       }
     ],
     "reflector": {
       "wiring": "YRUHQSLDPXNGOKMIEBFZCWVJATÁÉÍÓÚÑ0123456789 .,;!?()[]{}+-*/=_@#%&:$¡¿"
     }
-  }
+}
   
